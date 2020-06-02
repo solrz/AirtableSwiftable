@@ -12,8 +12,8 @@ let package = Package(
             targets: ["AirtableSwiftable"]),
     ],
     dependencies: [
-    .package(path: "https://github.com/Alamofire/Alamofire"),
-    .package(path: "https://github.com/SwiftyJSON/SwiftyJSON")
+        .package(url: "https://github.com/Alamofire/Alamofire.git", from:"5.2.1"),
+        .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from:"4.2.0")
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
     ],
@@ -22,9 +22,13 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "AirtableSwiftable",
-            dependencies: ["Alamofire","SwiftyJSON"]),
+            dependencies: ["Alamofire","SwiftyJSON"],
+            path:"Sources"
+        ),
         .testTarget(
             name: "AirtableSwiftableTests",
-            dependencies: ["AirtableSwiftable"]),
+            dependencies: ["AirtableSwiftable"],
+            path:"Tests"
+        ),
     ]
 )
