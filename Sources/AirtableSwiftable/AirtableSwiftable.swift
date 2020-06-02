@@ -16,7 +16,7 @@ typealias TableName = String
 typealias Filter = Dictionary<String, Any>
 typealias RecordID = String
 
-class Airtable : ObservableObject, CustomStringConvertible {
+public class Airtable : ObservableObject, CustomStringConvertible {
     var description: String{
         get{
             "Airtable@\(destUrl)"
@@ -221,7 +221,7 @@ class Airtable : ObservableObject, CustomStringConvertible {
     }
 }
 
-class Record:ObservableObject, CustomStringConvertible {
+public class Record:ObservableObject, CustomStringConvertible {
     var description: String{
         get{
             "Record(id:\(id), fields:\(fields))"
