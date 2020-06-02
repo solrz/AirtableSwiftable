@@ -1,8 +1,3 @@
-// Playground generated with 🏟 Arena (https://github.com/finestructure/arena)
-// ℹ️ If running the playground fails with an error "no such module ..."
-//    go to Product -> Build to re-trigger building the SPM package.
-// ℹ️ Please restart Xcode if autocomplete is not working.
-
 //
 //  Airtable.swift
 //  whabitchme WatchKit Extension
@@ -14,7 +9,6 @@
 import Foundation
 import SwiftyJSON
 import Alamofire
-import AlamofireNetworkActivityLogger
 
 typealias APIKey = String
 typealias DatabaseID = String
@@ -70,8 +64,6 @@ class Airtable : ObservableObject, CustomStringConvertible {
         self.createTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(backgroundCreate), userInfo: nil, repeats: true)
         self.updateTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(backgroundUpdate), userInfo: nil, repeats: true)
         self.list(after: {_ in })
-        NetworkActivityLogger.shared.level = .info
-        NetworkActivityLogger.shared.startLogging()
     }
     
     public func list(after completion: @escaping (_ records: [Record]) -> Void) {
@@ -317,49 +309,3 @@ class Record:ObservableObject, CustomStringConvertible {
     }
     
 }
-
-let AT = Airtable(apiKey: "keyn83Oy81vByKAPJ", DBID: "appaPa6LbDC3toqwZ", tableName: "HabitList")
-var recs:[Record] = []
-AT.list{ records in
-    recs = records
-}
-let havingHabits = recs.filter{
-    ($0["TriggerHabits"] as Array<String>).count != 0
-}
-print(havingHabits[0]["TriggerHabits"] as Array<Record>)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-AT.newRecord(["HabitName":"V1.0 Create pass"])
-AT.list{records in
-    print(records.count)
-}
-AT.updateRecord(id: "recU4MBDKeBeA7Dg4", fields: ["HabitName":"V1.0 Update pass"])
-AT.readRecord(id: "recU4MBDKeBeA7Dg4"){ records in
-    print(records.map{$0.fields})
-}
-AT.deleteRecord(id: ["recU4MBDKeBeA7Dg4"])
